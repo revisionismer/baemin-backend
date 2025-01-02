@@ -16,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class User {
 	private Long id;  // 1-1. PK
 	
 	@Column(length = 100, unique = true, nullable = false)  // 1-16. OAuth2 로그인을 위해 20 -> 100자로 늘린다.
+	@Email(message = "이메일 형식이어야 합니다.")
 	private String username;  // 1-2. 계정 명
 	
 	@Column(nullable = false)
@@ -43,29 +45,27 @@ public class User {
 	private String website; // 1-5. 웹사이트
 	
 	private String bio;  // 1-6. 자기소개
-	
+
 	@Column(nullable = false)
-	private String email;  // 1-7. 이메일
+	private String phone;  // 1-7. 휴대폰 번호
 	
-	private String phone;  // 1-8. 휴대폰 번호
+	private String gender;  // 1-8. 성별
 	
-	private String gender;  // 1-9. 성별
-	
-	private String profileImageUrl;  // 1-10. 프로필 이미지 경로
+	private String profileImageUrl;  // 1-9. 프로필 이미지 경로
 	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private UserEnum role; // ADMIN, CUSTOMER // 1-11. 권한
+	private UserEnum role; // ADMIN, CUSTOMER // 1-10. 권한
 
 	@CreatedDate
  	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
  	@Column(nullable = false)
- 	private LocalDateTime createdDate;  // 1-12. 생성일자
+ 	private LocalDateTime createdDate;  // 1-11. 생성일자
  	 
  	@LastModifiedDate
  	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
  	@Column(nullable = true)
- 	private LocalDateTime updatedDate;  // 1-13. 수정일
+ 	private LocalDateTime updatedDate;  // 1-12. 수정일
  	
  	private String refreshToken;
 	
@@ -78,17 +78,17 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", website="
-				+ website + ", bio=" + bio + ", email=" + email + ", phone=" + phone + ", gender=" + gender
+				+ website + ", bio=" + bio + ", phone=" + phone + ", gender=" + gender
 				+ ", profileImageUrl=" + profileImageUrl + ", role=" + role + ", createDate=" + createdDate + "]";
 	} 
 	
 	@Builder
-	public User(Long id, String username, String password, String name, String email, UserEnum role, LocalDateTime createdDate, LocalDateTime updatedDate) {
+	public User(Long id, String username, String password, String name, String phone, UserEnum role, LocalDateTime createdDate, LocalDateTime updatedDate) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.email = email;
 		this.name = name;
+		this.phone = phone;
 		this.role = role;
 		this.createdDate = createdDate;
 		this.updatedDate = updatedDate;
