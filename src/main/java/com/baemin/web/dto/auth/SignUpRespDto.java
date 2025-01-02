@@ -15,26 +15,24 @@ public class SignUpRespDto {
 	private String username;
 	private String name;
 	private UserEnum role;
-	private String email;
 	
-	public SignUpRespDto(Long id, String username, String email) {
+	public SignUpRespDto(Long id, String username) {
 		this.id = id;
 		this.username = username;
-		this.email = email;
+		
 	}
 	
-	public SignUpRespDto(Long id, String username, String name, String email) {
+	public SignUpRespDto(Long id, String username, String name) {
 		this.id = id;
 		this.username = username;
 		this.name = name;
-		this.email = email;
+		
 	}
 	
 	public SignUpRespDto(User userEntity) {
 		this.id = userEntity.getId();
 		this.username = userEntity.getUsername();
 		this.name = userEntity.getName();
-		this.email = userEntity.getEmail();
 		this.role = userEntity.getRole();
 	}
 }
